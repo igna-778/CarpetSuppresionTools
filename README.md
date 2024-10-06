@@ -22,7 +22,7 @@ command: `log EntityUUID`
 
 ## TODO List
 #### Dev
-[x] upsize set function
+- [x] upsize set function
 
 #### User
 - [x] Command for amount of books needed -> Needs testing to set constant correctly

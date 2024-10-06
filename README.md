@@ -25,13 +25,13 @@ command: `log EntityUUID`
 [x] upsize set function
 
 #### User
-[x] Command for amount of books needed -> Needs testing to set constant correctly
-[x] Snowball amount calc
-[ ] Time out suppression (Not geting kicked)
-[ ] OOM Help command 
-    [ ] Sub Help Pages for common debuging
-[ ] Creative tools for OOM
-    [X] Snowball Counter
-    [ ] Creative OOM Block
-    [ ] Instant Snowballs
-[ ] Help for SyncUpdates OOM ???
+- [x] Command for amount of books needed -> Needs testing to set constant correctly
+- [x] Snowball amount calc
+- [ ] Time out suppression (Not geting kicked)
+- [ ] OOM Help command 
+    - [ ] Sub Help Pages for common debuging
+- [ ] Creative tools for OOM
+    - [X] Snowball Counter
+    - [ ] Creative OOM Block
+    - [ ] Instant Snowballs
+- [ ] Help for SyncUpdates OOM ???

@@ -25,8 +25,8 @@ command: `log EntityUUID`
 
 ## TODO List
 #### Dev
-- [x] upsize set function
-
+- [x] Upsize set function
+- [ ] Add constant calculations
 #### User
 - [x] Command for amount of books needed -> Needs testing to set constant correctly
 - [x] Snowball amount calc
@@ -37,4 +37,5 @@ command: `log EntityUUID`
     - [X] Snowball Counter
     - [ ] Creative OOM Block
     - [ ] Instant Snowballs
+    - [ ] Instant Book Chunk
 - [ ] Help for SyncUpdates OOM ???

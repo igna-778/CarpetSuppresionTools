@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class BookCommand {
 
-    private static final double bookMemRate = 2777/(1024*1024); //bytes (for book trolling 1.20 tests) / MB/Book
+    private static final double bookMemRate = (double) 2777 /(1024*1024); //bytes (for book trolling 1.20 tests) / MB/Book
     private static final double snowMemRate = (1.5/(1024)); //bytes taken by snowballs in MB / MB/Snowball
 
 
@@ -27,8 +27,11 @@ public class BookCommand {
         int mem = IntegerArgumentType.getInteger(context, "mem");
         int base = IntegerArgumentType.getInteger(context, "base");
         long sncount = LongArgumentType.getLong(context, "sncount");
+        if(mem < 512) // If less than 512 MB asume GB units
+            mem = mem * 1024; // Convert to MB
+        if(base < 512) // If less than 512 MB asume GB units
+            base = base * 1024; // Convert to MB
         // MEM that we have to fill, base +memory base
-
         if(mem <= 0){
             source.sendFeedback(() -> Text.literal("Memory can't be negative!"), false);
             return 1;
@@ -38,14 +41,12 @@ public class BookCommand {
         }
         //Calculate Snowball fill and add to base
         sncount = MemUtils.calculateResize(sncount);
-        base += sncount * snowMemRate;
+        base += (int) (sncount * snowMemRate);
         //Check setup is still posible
         if (base > mem) {
             source.sendFeedback(() -> Text.literal("To many snowballs for the setup to work!"), false);
             return 1;
         }
-        if(mem < 512) // If less than 512 MB asume GB units
-            mem = mem * 1024; // Convert to MB
         //Calculate result
         String strRes = "The amount of books needed for the setup would be: ";
         //Do linear calculation of books needed

@@ -7,8 +7,6 @@ import igna778.suppressiontool.utils.MemUtils;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
-import java.util.function.Supplier;
-
 public class BookCommand {
 
     private static final double bookMemRate = (double) 2777 /(1024*1024); //bytes (for book trolling 1.20 tests) / MB/Book

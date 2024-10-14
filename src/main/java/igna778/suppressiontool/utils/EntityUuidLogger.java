@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 public class EntityUuidLogger extends HUDLogger {
     public static EntityUuidLogger create() {
         try {
-            return new EntityUuidLogger(STSettings.class.getDeclaredField("__EntityUUID"), "EntityUUID", "all", new String[]{"all", "total", "overworld", "nether", "end"}, false);
+            return new EntityUuidLogger(STSettings.class.getDeclaredField("entityUUID"), "entityUUID", "all", new String[]{"all", "total", "overworld", "nether", "end"}, false);
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         }

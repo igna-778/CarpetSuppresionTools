@@ -9,7 +9,7 @@
     "repo": "https://github.com/Ignacio/SupressionTool"
   },
   "license": "All-Rights-Reserved",
-  "icon": "assets/supressiontool/icon.png",
+  "icon": "assets/suppressiontool/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [

@@ -1,6 +1,7 @@
 package igna778.suppressiontool.mixin;
 
 import igna778.suppressiontool.utils.MemUtils;
+import igna778.suppressiontool.utils.STSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -22,7 +23,7 @@ public class JigsawOOMBlock extends Block {
 
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean n) {
-        if (!fromPos.equals(pos.up()) &&
+        if (STSettings.jigsawOOM && !fromPos.equals(pos.up()) &&
                 world.getBlockState(pos.up()).isOf(Blocks.GREEN_CANDLE)) {
             MemUtils.simulateOOM(0);
         }

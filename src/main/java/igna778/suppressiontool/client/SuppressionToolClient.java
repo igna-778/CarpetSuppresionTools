@@ -69,7 +69,7 @@ public class SuppressionToolClient implements ClientModInitializer, CarpetExtens
         registerLoggers();
 
         HUDController.register(server -> {
-            if (!STSettings.__EntityUUID) return;
+            if (!STSettings.entityUUID) return;
             int total = 0;
 
             int ow = ((ServerEntityManagerAccesor) ((ServerWorldAccessor) server.getWorld(World.OVERWORLD)).getEntityManager()).getEntityUuids().size();
@@ -79,7 +79,7 @@ public class SuppressionToolClient implements ClientModInitializer, CarpetExtens
                 total += ((ServerEntityManagerAccesor) ((ServerWorldAccessor) world).getEntityManager()).getEntityUuids().size();
             }
             int finalTotal = total;
-            LoggerRegistry.getLogger("EntityUUID").log(option -> mapOptions(option, finalTotal, ow, ne, end));
+            LoggerRegistry.getLogger("entityUUID").log(option -> mapOptions(option, finalTotal, ow, ne, end));
         });
     }
 
@@ -108,7 +108,7 @@ public class SuppressionToolClient implements ClientModInitializer, CarpetExtens
         return new Text[]{Text.of(String.join("; ", builder.toArray(new String[]{})))};
     }
     public void registerLoggers() {
-        LoggerRegistry.registerLogger("EntityUUID", EntityUuidLogger.create());
+        LoggerRegistry.registerLogger("entityUUID", EntityUuidLogger.create());
     }
 
 

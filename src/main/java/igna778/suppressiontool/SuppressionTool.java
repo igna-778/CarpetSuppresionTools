@@ -13,8 +13,19 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.GsonBuilder;
+import org.apache.commons.io.IOUtils;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Map;
+
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SuppressionTool implements ModInitializer, CarpetExtension {
 
@@ -25,7 +36,7 @@ public class SuppressionTool implements ModInitializer, CarpetExtension {
         registerLoggers();
 
         HUDController.register(server -> {
-            if (!STSettings.__EntityUUID) return;
+            if (!STSettings.entityUUID) return;
             int total = 0;
 
             int ow = ((ServerEntityManagerAccesor) ((ServerWorldAccessor) server.getWorld(World.OVERWORLD)).getEntityManager()).getEntityUuids().size();
@@ -35,7 +46,7 @@ public class SuppressionTool implements ModInitializer, CarpetExtension {
                 total += ((ServerEntityManagerAccesor) ((ServerWorldAccessor) world).getEntityManager()).getEntityUuids().size();
             }
             int finalTotal = total;
-            LoggerRegistry.getLogger("EntityUUID").log(option -> mapOptions(option, finalTotal, ow, ne, end));
+            LoggerRegistry.getLogger("entityUUID").log(option -> mapOptions(option, finalTotal, ow, ne, end));
         });
 
     }
@@ -56,6 +67,22 @@ public class SuppressionTool implements ModInitializer, CarpetExtension {
 
     @Override
     public void registerLoggers() {
-        LoggerRegistry.registerLogger("EntityUUID", EntityUuidLogger.create());
+        LoggerRegistry.registerLogger("entityUUID", EntityUuidLogger.create());
+    }
+
+
+    @Override
+    public Map<String, String> canHasTranslations(String lang) {
+        InputStream langFile = SuppressionTool.class.getClassLoader().getResourceAsStream("assets/suppressiontool/lang/%s.json".formatted(lang));
+        if (langFile == null) {
+            return Collections.emptyMap();
+        }
+        String jsonData;
+        try {
+            jsonData = IOUtils.toString(langFile, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            return Collections.emptyMap();
+        }
+        return new GsonBuilder().create().fromJson(jsonData, new TypeToken<Map<String, String>>() {}.getType());
     }
 }

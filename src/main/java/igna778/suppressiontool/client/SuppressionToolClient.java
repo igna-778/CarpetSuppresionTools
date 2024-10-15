@@ -4,6 +4,7 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpet.logging.HUDController;
 import carpet.logging.LoggerRegistry;
+import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.LongArgumentType;
@@ -17,6 +18,7 @@ import igna778.suppressiontool.utils.MemUtils;
 import igna778.suppressiontool.utils.STSettings;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -56,6 +58,14 @@ public class SuppressionToolClient implements ClientModInitializer, CarpetExtens
                                     .then(CommandManager.argument("theory", BoolArgumentType.bool())
                                         .executes(SnowballCommands::snowballCalc)
                                     )
+                            )
+                    )
+            );
+
+            dispatcher.register(CommandManager.literal("spwnhidensnowballs")
+                    .then(CommandManager.argument("amount", IntegerArgumentType.integer(1))
+                            .then(CommandManager.argument("pos", BlockPosArgumentType.blockPos())
+                                    .executes(SnowballCommands::snowballHiddenSpawn)
                             )
                     )
             );

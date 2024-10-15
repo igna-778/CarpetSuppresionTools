@@ -37,6 +37,6 @@ command: `log EntityUUID`
     - [X] Snowball Counter
     - [X] Creative OOM Block
     - [ ] Setup Command
-      - [ ] Instant Snowballs
+      - [X] Instant Snowballs
       - [ ] Instant Book Chunk
 - [ ] Help for SyncUpdates OOM ???

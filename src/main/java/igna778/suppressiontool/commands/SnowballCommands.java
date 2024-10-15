@@ -7,8 +7,10 @@ import com.mojang.brigadier.context.CommandContext;
 import com.sun.jdi.connect.Connector;
 import igna778.suppressiontool.utils.EntityUtils;
 import igna778.suppressiontool.utils.MemUtils;
+import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
 
 public class SnowballCommands {
 
@@ -28,6 +30,21 @@ public class SnowballCommands {
         result = MemUtils.calculateResizePow(maxPow) - UUIDSize;
         String resStr = "Te maximum amount of snowballs for the setup is: "+result;
         source.sendFeedback(() -> Text.literal(resStr), false);
+        return 0;
+    }
+
+    public static int snowballHiddenSpawn(CommandContext<ServerCommandSource> context){
+        ServerCommandSource source = context.getSource();
+        int amount = IntegerArgumentType.getInteger(context, "amount");
+        BlockPos pos = BlockPosArgumentType.getBlockPos(context, "pos");
+
+        if(EntityUtils.spawnHiddenEntities(source.getWorld(),pos,amount)) {
+            String resStr = "Successfully spawned " + amount + " at " + pos.toString();
+            source.sendFeedback(() -> Text.literal(resStr), false);
+        }else {
+            String resStr = "Chunk is not hidden, try to unload the chunk before executing this command again";
+            source.sendFeedback(() -> Text.literal(resStr), false);
+        }
         return 0;
     }
 }

@@ -45,22 +45,28 @@ public class BookCommand {
             source.sendFeedback(() -> Text.literal("Memory usage can't be bigger than memory!"), false);
             return 1;
         }
+
+        long result = bookCalc(mem,base,sncount);
+
+        if (result < 0) {
+            source.sendFeedback(() -> Text.literal("To many snowballs for the setup to work!"), false);
+            return 1;
+        }
+        String strRes = "The amount of books needed for the setup would be: "+result;
+        source.sendFeedback(() -> Text.literal(strRes), false);
+        return 0;
+    }
+
+    public static long bookCalc(int mem,int base,long sncount){
         //Calculate Snowball fill and add to base
         sncount = MemUtils.calculateResize(sncount);
         base += (int) (sncount * snowMemRate);
         //Check setup is still posible
-        if (base > mem) {
-            source.sendFeedback(() -> Text.literal("To many snowballs for the setup to work!"), false);
-            return 1;
-        }
-        //Calculate result
-        String strRes = "The amount of books needed for the setup would be: ";
+        if(mem < base)
+            return  -1;
         //Do linear calculation of books needed
         int res = (int) Math.ceil((mem-base)/bookMemRate); // amount of books
-        //Send feedback to player
-        source.sendFeedback(() -> Text.literal(strRes+res), false);
 
-        return 0;
     }
 
     public static int generateBookChunk(CommandContext<ServerCommandSource> context){

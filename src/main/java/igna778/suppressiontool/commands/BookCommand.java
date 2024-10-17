@@ -3,9 +3,17 @@ package igna778.suppressiontool.commands;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import igna778.suppressiontool.utils.ChunkUtils;
 import igna778.suppressiontool.utils.MemUtils;
+import net.minecraft.command.argument.BlockPosArgumentType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 
 public class BookCommand {
 
@@ -54,4 +62,19 @@ public class BookCommand {
 
         return 0;
     }
+
+    public static int generateBookChunk(CommandContext<ServerCommandSource> context){
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayer();
+        ServerWorld world = source.getWorld();
+        BlockPos pos = BlockPosArgumentType.getBlockPos(context,"pos");
+        if(player == null)
+            return 1;
+        ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+
+        if(!stack.isOf(Items.WRITTEN_BOOK) && !stack.isOf(Items.WRITABLE_BOOK))
+            return 1;
+        return ChunkUtils.generateBarrelChunk(world,stack,pos) ? 0 : 1;
+    }
+
 }

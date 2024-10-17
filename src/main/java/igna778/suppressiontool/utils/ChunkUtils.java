@@ -7,6 +7,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class ChunkUtils {
 
         /**
@@ -79,6 +82,14 @@ public class ChunkUtils {
             amount -= 27;
         }
 
+        return true;
+    }
+
+    public static  boolean areChunksHidden(ServerWorld world,List<ChunkPos> chunkPosList){
+        for (ChunkPos pos : chunkPosList) {
+            if (world.getChunkManager().isChunkLoaded(pos.x, pos.z))
+                return false;
+        }
         return true;
     }
 }

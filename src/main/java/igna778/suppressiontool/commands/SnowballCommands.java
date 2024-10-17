@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class SnowballCommands {
 
-    private static final double snowMemRate = (1.5/(1024)); //bytes taken by snowballs in MB / MB/Snowball
+    public static final double snowMemRate = (1.5/(1024)); //bytes taken by snowballs in MB / MB/Snowball
 
     public static int snowballCalc(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
@@ -25,13 +25,13 @@ public class SnowballCommands {
         if(mem < 512) // If less than 512 MB asume GB units
             mem = mem * 1024; // Convert to MB
         mem -= base;
-        String resStr = "Te maximum amount of snowballs for the setup is: "+snowballCalc(mem,base,UUIDSize);
+        String resStr = "Te maximum amount of snowballs for the setup is: "+snowballCalc(mem,UUIDSize);
         source.sendFeedback(() -> Text.literal(resStr), false);
         return 0;
 
     }
 
-    public static long snowballCalc (int mem, int base,long UUIDSize)
+    public static long snowballCalc (int mem,long UUIDSize)
     {
         long result = (long) Math.ceil(mem / snowMemRate); // Get the amount of snowballs
         int maxPow = MemUtils.powerOfTwo(result)-1;

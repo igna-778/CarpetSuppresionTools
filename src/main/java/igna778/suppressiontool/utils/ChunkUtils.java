@@ -64,7 +64,7 @@ public class ChunkUtils {
 
 
 
-    public static boolean generateBarrelChunk(World world, ItemStack stack, BlockPos pos){
+    public static boolean generateBarrelChunk(World world, ItemStack stack,int amount, BlockPos pos){
 
         // Check if we are on the server side
         if (!(world instanceof ServerWorld)) {
@@ -74,9 +74,9 @@ public class ChunkUtils {
         ChunkPos chunkPos = new ChunkPos(pos);
         int freeYLevel = findLowestFreeVolume(world,chunkPos);
 
-
-        for (int i = 0; i < 16*16; i++) {
-            ItemUtils.placeFullBarrelWithItem(world, chunkPos.getStartPos().add(i%16,freeYLevel,(int)i/16), stack);
+        for (int i = 0; i < 16*16 && amount > 0; i++) {
+            ItemUtils.placeBarrelWithItem(world, chunkPos.getStartPos().add(i%16,freeYLevel,(int)i/16), stack,amount);
+            amount -= 27;
         }
 
         return true;

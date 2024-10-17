@@ -71,8 +71,10 @@ public class SuppressionToolClient implements ClientModInitializer, CarpetExtens
             );
 
             dispatcher.register(CommandManager.literal("generatebookchunk")
-                    .then(CommandManager.argument("pos", BlockPosArgumentType.blockPos())
-                            .executes(BookCommand::generateBookChunk)
+                    .then(CommandManager.argument("amount", IntegerArgumentType.integer(1))
+                            .then(CommandManager.argument("pos", BlockPosArgumentType.blockPos())
+                                    .executes(BookCommand::generateBookChunk)
+                            )
                     )
             );
 

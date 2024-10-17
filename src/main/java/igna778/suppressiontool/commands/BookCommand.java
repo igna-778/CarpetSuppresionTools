@@ -68,13 +68,17 @@ public class BookCommand {
         ServerPlayerEntity player = source.getPlayer();
         ServerWorld world = source.getWorld();
         BlockPos pos = BlockPosArgumentType.getBlockPos(context,"pos");
-        if(player == null)
+        int amount = IntegerArgumentType.getInteger(context,"amount");
+        if(player == null) {
+            source.sendFeedback(() -> Text.literal("Command needs to be executed by a player"), true);
             return 1;
+        }
         ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
-
-        if(!stack.isOf(Items.WRITTEN_BOOK) && !stack.isOf(Items.WRITABLE_BOOK))
+        if(!stack.isOf(Items.WRITTEN_BOOK) && !stack.isOf(Items.WRITABLE_BOOK)) {
+            source.sendFeedback(() -> Text.literal("Hold a Book on your main hand to execute this command"), true);
             return 1;
-        return ChunkUtils.generateBarrelChunk(world,stack,pos) ? 0 : 1;
+        }
+        return ChunkUtils.generateBarrelChunk(world,stack,amount,pos) ? 0 : 1;
     }
 
 }

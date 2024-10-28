@@ -66,7 +66,7 @@ public class BookCommand {
             return  -1;
         //Do linear calculation of books needed
         int res = (int) Math.ceil((mem-base)/bookMemRate); // amount of books
-
+        return res;
     }
 
     public static int generateBookChunk(CommandContext<ServerCommandSource> context){
